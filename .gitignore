@@ -1,0 +1,15 @@
+# Ignore heavy runtime or deployment files
+*.Rproj
+.Rhistory
+.RData
+*.log
+
+# Ignore any sensitive files
+*.env
+secrets.txt
+
+# Ignore output data and big folders
+shiny-app/R/www/
+docker/output/
+
+shiny-app/R/www/
