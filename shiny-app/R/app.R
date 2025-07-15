@@ -299,6 +299,8 @@ ui <- dashboardPage(skin = "yellow",
                       fluidRow(
                         box(
                           title = "table", status="warning", collapsible = TRUE, width = 12,
+                          
+                          downloadButton("download_data", "Download Table", class = "btn-warning"),
 
                           withSpinner(dataTableOutput("o_table", width = "100%", height = "auto"),
                                       type = 6, color = "#cf9206", size = 2),
@@ -526,6 +528,16 @@ server <- function(input, output) {
       res
       
     })
+    
+    output$download_data <- downloadHandler(
+      filename = function() {
+        paste("butterfly_data_", Sys.Date(), ".csv", sep = "")
+      },
+      content = function(file) {
+        write.csv(df_selected_filter(), file, row.names = FALSE)
+      }
+    )
+    
 
     if (nrow(df_selected_filter()) < 1){
       shinyalert( "No matching data found. Please enter different parameters.", type = "warning",
@@ -1167,7 +1179,7 @@ server <- function(input, output) {
       shinyalert("No butterfly species selected. Please select at least one.", type = "warning",
                  time = 90000)
     }
-    
+    a
 ## color button   
   }, ignoreInit = FALSE) 
   
