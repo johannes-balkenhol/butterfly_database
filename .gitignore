@@ -10,6 +10,7 @@ secrets.txt
 
 # Ignore output data and big folders
 shiny-app/R/www/
+shiny-app/www
 docker/output/
 
-shiny-app/R/www/
+
