@@ -15,6 +15,45 @@ A filterable graph plot of the color brightness of the butterflies in relation t
 
 #### Creating a FAIR-Compliant Butterfly Database: a Digital Archive Enabling Global Accessibility, Scientific Research, and Scalability
 
+##### butterflfy-app structure
+
+Butterfly_database/
+└── scripts/shiny-app/
+    ├── app.R
+    ├── app_full.R
+    ├── global.R
+    ├── data/
+    │   ├── butterfly_collection.sqlite
+    │   ├── butterfly_database.xlsx
+    │   ├── butterfly_color_brightness.xlsx
+    │   ├── FFH_List.xlsx
+    │   ├── Red_List_Bavaria.xlsx
+    │   └── butterfly_database_with_pid.xlsx
+    ├── server/
+    │   ├── color_brightness_plot.R
+    │   ├── family_tree.R
+    │   ├── filters.R
+    │   ├── map_plot.R
+    │   ├── output_text.R
+    │   ├── pid_handler.R
+    │   └── table_output.R
+    ├── ui/
+    │   ├── color_plot_ui.R
+    │   ├── main_dashboard.R
+    │   └── sidebarPanel.R
+    ├── snippets/
+    │   ├── build_database.R
+    │   └── format_table.R
+    ├── www/
+    │   ├── images/                # ~400 butterfly images
+    │   ├── mapicons/              # family icons
+    │   └── placeholder.png
+    └── docker/
+        └── entrypoint.sh
+
+
+
+
 ##### Abstract:
 
 In pursuit of enhancing research data management (RDM) and adhering to the FAIR principles (Findable, Accessible, Interoperable, Reusable), we have meticulously constructed a comprehensive Butterfly Database. This database serves as a digital repository for a rich collection of butterfly specimens, thoughtfully digitized through high-quality photographs, and enriched with crucial metadata. Our project leveraged the power of R and R-Shiny to provide global access to this invaluable resource, enabling researchers and enthusiasts worldwide to seamlessly interact with the data.

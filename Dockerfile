@@ -1,50 +1,33 @@
-# Use an official R runtime as a parent image
-FROM rocker/r-ver:4.3.2
+# Use rocker/shiny as base image
+FROM rocker/shiny:4.3.2
 
-# Base image https://hub.docker.com/u/rocker/
-FROM rocker/shiny:latest
-
-# Install R
-RUN apt-get update && apt-get install -y r-base
-
-RUN R -e "install.packages('shiny', repos='http://cran.rstudio.com/')"
-
-# System libraries
+# Install required system libraries
 RUN apt-get update && apt-get install -y \
     libssl-dev \
     libnetcdf-dev \
     libcurl4-gnutls-dev \
-    libhts-dev \ 
-    libbz2-dev \ 
-    liblzma-dev \ 
+    libbz2-dev \
+    liblzma-dev \
     libxml2-dev \
     libglpk40 \
-    default-jdk \
     libpq-dev \
-    libssh2-1-dev
-    
+    libssh2-1-dev \
+    default-jdk \
+    && rm -rf /var/lib/apt/lists/*
 
+# Install R packages
+RUN R -e "install.packages(c('shiny','shinydashboard','shinyWidgets','shinyjs','shinycssloaders','shinyalert','readxl','DT','data.table','dplyr','tidyr','leaflet','igraph','ggraph','plotly'), repos='https://cran.rstudio.com/')"
 
-# Install other CRAN packages
-RUN R -e 'install.packages(c("shiny", "shinydashboard", "shinyWidgets", "shinyjs", "shinycssloaders","shinyalert","readxl","DT","data.table","dplyr","tidyr","leaflet","igraph","ggraph","plotly"))'
+# Copy app files
+WORKDIR /app
+COPY shiny-app/ /app/
 
-RUN mkdir -p /app
-
-
-COPY shiny-app/ /app/R/
-
-
-# Set up entry point script
-COPY /docker/entrypoint.sh /usr/bin/entrypoint.sh
-
+# Copy entrypoint script
+COPY docker/entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh
 
+# Expose Shiny port
+EXPOSE 3838
 
-# Expose the Shiny app port
-EXPOSE 3839
-
-
+# Start Shiny App
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
-# Set the entry point to the script
-#ENTRYPOINT ["/usr/bin/entrypoint.sh"]
-
