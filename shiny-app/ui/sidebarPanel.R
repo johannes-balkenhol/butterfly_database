@@ -1,5 +1,29 @@
 sidebar <- dashboardSidebar(
   tags$head(includeScript("www/submit_via_enter.js")),
+  tags$style(HTML("
+    /* Sidebar 'Search' button styling */
+    .fixed-bottom-btn {
+      position: sticky;
+      bottom: 15px;
+      background-color: #fff9e6;
+      padding: 10px 0 10px 0;
+      text-align: center;
+      border-top: 2px solid #cf9206;
+      z-index: 10;
+    }
+
+    .fixed-bottom-btn .btn {
+      width: 90%;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      text-transform: none;
+    }
+
+    .fixed-bottom-btn .btn:hover {
+      background-color: #cf9206 !important;
+      color: white !important;
+    }
+  ")),
   width = 250,
   sidebarMenu(
     fluidRow(
@@ -9,7 +33,7 @@ sidebar <- dashboardSidebar(
       ## Suborder filters
       column(11, 
              h5(HTML("&emsp;"), "suborder (select at least one)"),
-             style = "margin-bottom:+25px;"
+             style = "margin-bottom:+15px;"
       ),
       column(11, 
              awesomeCheckbox("day", "Rhopalocera on/off",
@@ -153,16 +177,19 @@ sidebar <- dashboardSidebar(
       ),
       
       ## Run button
-      column(11,
-             br(),
-             div(style="position: fixed; bottom: 20px; width: 220px; z-index: 1000;",
-                 actionBttn(
-                   inputId = "run_button",
-                   label = h5("search with these inputs"),
-                   color = "warning",
-                   style = "bordered"
-                 )
-             )
+      ## Run button — anchored at the bottom, styled cleanly
+      column(
+        11,
+        br(), br(),
+        div(
+          class = "fixed-bottom-btn",
+          actionBttn(
+            inputId = "run_button",
+            label = h5("Search with these inputs"),
+            color = "warning",
+            style = "bordered"
+          )
+        )
       ),
       
       ## Footer

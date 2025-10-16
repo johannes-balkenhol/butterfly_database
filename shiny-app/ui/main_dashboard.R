@@ -1,27 +1,9 @@
-main_dashboard <- dashboardBody(
+main_dashboard <- fluidPage(
   tags$head(
     tags$style(HTML("
       img.small-img { max-width: 75px; }
       .shiny-output-error, .shiny-output-error:before { visibility: hidden; }
       .wrapper { height: 100%; position: relative; overflow-x: hidden; overflow-y: hidden; }
-      
-      /* Match sidebar and content alignment */
-      .content-wrapper, .right-side {
-        margin-left: 120px !important;
-        padding: 0 5px !important;
-        background-color: #ffffff;
-      }
-      
-      /* Adjust header to align with sidebar */
-      .main-header .logo { width: 250px !important; }
-      .main-header .navbar { margin-left: 250px !important; }
-      
-      /* Remove sidebar padding */
-      .main-sidebar { 
-        padding: 0 !important;
-        overflow-y: auto !important;
-        height: 100% !important;
-      }
     "))
   ),
   
@@ -43,7 +25,6 @@ main_dashboard <- dashboardBody(
   fluidRow(
     box(
       title = "Specimen Table", status = "warning", collapsible = TRUE, width = 12,
-      downloadButton("download_data", "Download Table", class = "btn-warning"),
       downloadButton("download_csv", "Download Table (CSV)", class = "btn-warning"),
       downloadButton("download_abcd", "Download ABCD/DwC (XML)", class = "btn-warning"),
       withSpinner(
