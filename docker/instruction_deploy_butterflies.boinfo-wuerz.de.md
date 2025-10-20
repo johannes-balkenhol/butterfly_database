@@ -38,10 +38,6 @@ R
 ls /usr/local/lib/R/site-library
 
 
-# copy files to server
-scp test.png felix@xx.xxx.xx.xx:/home/felix
-# aber besser mit winscp
-
 
 # Install ohne Docker
 ## ordner fürs deployen

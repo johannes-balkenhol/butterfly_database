@@ -1,0 +1,37 @@
+# --- Leaflet test image with devtools dependencies ---
+FROM rocker/r-ver:4.3.2
+
+# Install comprehensive system dependencies
+RUN apt-get update && apt-get install -y \
+    libssl-dev \
+    libcurl4-openssl-dev \
+    libxml2-dev \
+    libgit2-dev \
+    libgdal-dev \
+    libgeos-dev \
+    libproj-dev \
+    libudunits2-dev \
+    libfontconfig1-dev \
+    libfreetype6-dev \
+    libpng-dev \
+    libtiff5-dev \
+    libjpeg-dev \
+    libharfbuzz-dev \
+    libfribidi-dev \
+    make \
+    g++ \
+    git \
+    pandoc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install remotes (lighter alternative to devtools for GitHub installs)
+RUN R -e "install.packages('remotes', repos='https://cran.rstudio.com/')"
+
+# Install leaflet from GitHub using remotes
+RUN R -e "remotes::install_github('rstudio/leaflet', upgrade='never', dependencies=TRUE)"
+
+# Test leaflet installation
+RUN R -e "library(leaflet); \
+          m <- leaflet() %>% addTiles() %>% setView(lng=-93.65, lat=42.0285, zoom=4); \
+          htmlwidgets::saveWidget(m, '/tmp/test_leaflet.html'); \
+          cat('✅ leaflet installed successfully and generated /tmp/test_leaflet.html\n')"
