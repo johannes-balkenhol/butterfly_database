@@ -125,6 +125,8 @@ observeEvent(input$run_button, {
     cat("DEBUG: After red list filter:", nrow(res), "\n")
   }
   
+  
+  
   ## ------------------------
   ## Save and handle output
   ## ------------------------
@@ -143,3 +145,50 @@ observeEvent(input$run_button, {
   
   enable("run_button")
 })
+
+
+## ----------------------------------------------------------------------------
+## Load Example Filters Button
+## ----------------------------------------------------------------------------
+observeEvent(input$load_example, {
+  
+  # Suborder
+  updateAwesomeCheckbox(session, "day",   value = TRUE)
+  updateAwesomeCheckbox(session, "night", value = FALSE)
+  
+  # Family (day mode)
+  updateSelectInput(session, "family_day",
+                    selected = "Nymphalidae")
+  
+  # Genus, species
+  updateSelectInput(session, "genus",
+                    selected = "Vanessa")
+  
+  updateSelectInput(session, "species",
+                    selected = "Vanessa atalanta")
+  
+  # Country
+  updateSelectInput(session, "land",
+                    selected = "Germany")
+  
+  # Elevation
+  updateSliderInput(session, "elevation",
+                    value = c(0, 1500))
+  
+  # Date
+  updateDateRangeInput(session, "date",
+                       start = "1950-01-01",
+                       end   = "2020-12-31")
+  
+  # Total number slider
+  updateSliderInput(session, "total_number",
+                    value = c(1, 20))
+  
+  # Options
+  updateAwesomeCheckbox(session, "pictures", value = TRUE)
+  updateAwesomeCheckbox(session, "digitizer", value = FALSE)
+  
+  # Optional: automatically trigger search
+  session$sendCustomMessage("click_run_button", list())
+})
+  

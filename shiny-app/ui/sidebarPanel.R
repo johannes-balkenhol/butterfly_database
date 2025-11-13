@@ -178,19 +178,38 @@ sidebar <- dashboardSidebar(
       
       ## Run button
       ## Run button — anchored at the bottom, styled cleanly
+      ## Example + Search buttons
       column(
         11,
-        br(), br(),
+        br(),
         div(
-          class = "fixed-bottom-btn",
+          style = "display: flex; gap: 3px;",
+          
+          actionBttn(
+            inputId = "load_example",   # IMPORTANT: match server!
+            label = div(
+              style="font-size: 13px; line-height: 1.1; white-space: normal; text-align:center;",
+              "Load Example"
+            ),
+            color = "warning",
+            style = "bordered",
+            width = "50%"
+          ),
+          
           actionBttn(
             inputId = "run_button",
-            label = h5("Search with these inputs"),
+            label = div(
+              style="font-size: 13px; line-height:1.1; white-space: normal; text-align:center;",
+              "Search"
+            ),
             color = "warning",
-            style = "bordered"
+            style = "bordered",
+            width = "50%"
           )
         )
       ),
+      
+      
       
       ## Footer
       column(12,
